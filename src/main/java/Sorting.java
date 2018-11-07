@@ -33,7 +33,19 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] bubbleSort(final int[] array) {
-        return null;
+        int[] arr = array.clone();
+
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (arr[j] > arr[i]) {
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+
+        return arr;
     }
 
     /**
@@ -44,7 +56,23 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] selectionSort(final int[] array) {
-        return null;
+        int[] arr = array.clone();
+
+        for (int i = 0; i < arr.length; i++) {
+            int minindex = i;
+
+            for (int j = i; j < arr.length; j++) {
+                if (arr[j] < arr[minindex]) {
+                    minindex = j;
+                }
+            }
+
+            int temp = arr[i];
+            arr[i] = arr[minindex];
+            arr[minindex] = temp;
+        }
+
+        return arr;
     }
 
     /**
@@ -55,7 +83,27 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] mergeSort(final int[] array) {
-        return null;
+        return mergeSortRecursive(array, 0, array.length);
+    }
+
+    /**
+     * Recursive merge sort.
+     * @param arr array
+     * @param lo lower bound
+     * @param hi higher bound
+     * @return sorted array
+     */
+    private static int[] mergeSortRecursive(final int[] arr, final int lo, final int hi) {
+        if (hi - lo <= 1) {
+            return Arrays.copyOfRange(arr, lo, hi);
+        }
+
+        int mid = (lo + hi) / 2;
+
+        int[] left = mergeSortRecursive(arr, lo, mid);
+        int[] right = mergeSortRecursive(arr, mid, hi);
+
+        return merge(left, right);
     }
 
     /**
